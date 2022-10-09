@@ -24,11 +24,13 @@ class linklist
 {
     public:
     Node *head;
+    Node *tail;
     int ListCount=0;
 
     void createNode(int d);
     void PrintList();
     void DeleteNode(int n);
+    linklist merge(linklist a,linklist b);
     linklist()
     {
         head=NULL;
@@ -42,6 +44,7 @@ void linklist::createNode(int d)
     if(head==NULL)
     {
         head=freshNode;
+        tail=freshNode;
         ListCount++;
     }
     else
@@ -54,11 +57,26 @@ void linklist::createNode(int d)
         temp=temp->link;
     }
     temp->link=freshNode;
+    tail=freshNode;
     ListCount++;
 
     }
 }
 
+linklist linklist::merge(linklist a,linklist b)
+{
+    linklist result=a;
+    Node * temp=result.head;
+    while(temp->link!=NULL)
+    temp=temp->link;
+    temp->link=b.head;
+    result.ListCount=a.ListCount+b.ListCount;
+    temp=result.head;
+    while(temp->link!=NULL)
+    temp=temp->link;
+    this->tail=temp;
+    return result;
+}
 void linklist::DeleteNode(int n)
 {
     Node *temp1=head,*temp2=NULL;
@@ -73,7 +91,7 @@ void linklist::DeleteNode(int n)
     {
         if(n>ListCount)
         {
-            cout<<"Bruh Nodes Na Title **face palm**"<<endl;
+            cout<<"Bruh Nodes Na Tittle **face palm**"<<endl;
         }
         else
         {
@@ -85,6 +103,10 @@ void linklist::DeleteNode(int n)
                 count++;
             }
             temp2->link=temp1->link;
+            if((n==ListCount)&&(temp2->link==NULL))
+            {
+                tail=temp2;
+            }
             delete temp1;
             ListCount--;
             cout<<"deleted "<<n<<" Node"<<endl;
@@ -119,17 +141,18 @@ int main()
 {
     int num,choice;
     int k = 0, ctr;
-    linklist obj;
+    linklist obj1,obj2,mobj;
 
-    while(choice!=5)
+    while(choice!=6)
     {   
 
         {
             cout << "1. Add Node" << endl;
             cout<< "2. Enter Multiple Nodes"<<endl;
-            cout << "3. Delete Node" << endl;
-            cout << "4. Print List" << endl;
-            cout << "5. Exit" << endl;
+            cout<<"3. Merge Another list To existing list"<<endl;
+            cout << "4. Delete Node" << endl;
+            cout << "5. Print List" << endl;
+            cout << "6. Exit" << endl;
             cin >> choice;
             system("cls");
             switch (choice)
@@ -137,28 +160,47 @@ int main()
             case 1:
                 cout << "Enter the number to be added" << endl;
                 cin >> num;
-                obj.createNode(num);
+                obj1.createNode(num);
                 break;
             case 2:
                 cout << "Enter the number of nodes to be Added" << endl;
                 cin >> ctr;
+                k=0;
                 while(k<ctr)
                 {
                     cout<<endl<<"node "<<k+1<<":";
                     cin>>num;
-                    obj.createNode(num);   
+                    obj1.createNode(num);   
                     k++;
                 }
                 break;
             case 3:
+                cout<<"Enter 2nd List"<<endl;
+                cout << "Enter the number of nodes to be Added" << endl;
+                cin >> ctr;
+                k=0;
+                while (k < ctr)
+                {
+                    cout << endl
+                         << "node " << k + 1 << ":";
+                    cin >> num;
+                    obj2.createNode(num);
+                    k++;
+                }
+                mobj=obj1.merge(obj1,obj2);
+                mobj.PrintList();
+                break;
+                
+
+            case 4:
                 cout << "Enter the node to be deleted" << endl;
                 cin >> num;
-                obj.DeleteNode(num);
-                break;
-            case 4:
-                obj.PrintList();
+                obj1.DeleteNode(num);
                 break;
             case 5:
+                obj1.PrintList();
+                break;
+            case 6:
                 cout << "Thanks Bebo" << endl;
                 break;
             default:
