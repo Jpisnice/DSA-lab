@@ -31,6 +31,7 @@ class linklist
     void PrintList();
     void DeleteNode(int n);
     linklist merge(linklist a,linklist b);
+    linklist split(linklist a,int n);
     linklist()
     {
         head=NULL;
@@ -137,6 +138,35 @@ void linklist::PrintList()
     
 }
 
+linklist linklist::split(linklist a,int n)
+{
+    Node *temp=a.head;
+    int ctr=1;
+    linklist result;
+
+    if(n>a.ListCount)
+    {
+        cout << "Cannot split" << endl;
+        return a;
+    }
+
+    while(temp!=NULL)
+    {
+        temp=temp->link;
+
+        if(ctr==n)
+        break;
+
+        ctr++;
+        
+    }
+    result.head=temp->link;
+    
+    result.ListCount=a.ListCount-ctr;
+    a.ListCount=a.ListCount-1-result.ListCount;
+    temp->link=NULL;
+    return result;
+}
 int main()
 {
     int num,choice;
@@ -150,9 +180,10 @@ int main()
             cout << "1. Add Node" << endl;
             cout<< "2. Enter Multiple Nodes"<<endl;
             cout<<"3. Merge Another list To existing list"<<endl;
-            cout << "4. Delete Node" << endl;
-            cout << "5. Print List" << endl;
-            cout << "6. Exit" << endl;
+            cout<<"4. Split Entered list into 2 lists"<<endl;
+            cout << "5. Delete Node" << endl;
+            cout << "6. Print List" << endl;
+            cout << "7. Exit" << endl;
             cin >> choice;
             system("cls");
             switch (choice)
@@ -190,17 +221,30 @@ int main()
                 mobj=obj1.merge(obj1,obj2);
                 mobj.PrintList();
                 break;
-                
 
             case 4:
+                cout<<"existing list:"<<endl;
+                obj1.PrintList();
+                cout<<"from Which Node to split?"<<endl;
+                cin>>ctr;
+                obj2=obj1.split(obj1,ctr);
+                system("cls");
+                obj1.PrintList();
+                cout<<"------------------------------------"<<endl;
+                obj2.PrintList();
+                break;
+
+                
+
+            case 5:
                 cout << "Enter the node to be deleted" << endl;
                 cin >> num;
                 obj1.DeleteNode(num);
                 break;
-            case 5:
+            case 6:
                 obj1.PrintList();
                 break;
-            case 6:
+            case 7:
                 cout << "Thanks Bebo" << endl;
                 break;
             default:
