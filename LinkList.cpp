@@ -118,7 +118,7 @@ void linklist::DeleteNode(int n)
 
 void linklist::PrintList()
 {
-    cout<<"There are "<<ListCount<<" Nodes"<<endl;
+    cout<<"There are "<<this->ListCount<<" Nodes"<<endl;
     Node* temp=head;
     int ncount=0;
     if(head==NULL)
@@ -135,6 +135,7 @@ void linklist::PrintList()
             ncount++;
         }
     }
+    this->ListCount=ncount;
     
 }
 
@@ -153,18 +154,33 @@ linklist linklist::split(linklist a,int n)
     while(temp!=NULL)
     {
         temp=temp->link;
+        ctr++;
 
         if(ctr==n)
         break;
-
-        ctr++;
         
     }
-    result.head=temp->link;
+    result.head=temp;
     
     result.ListCount=a.ListCount-ctr;
-    a.ListCount=a.ListCount-1-result.ListCount;
+    a.ListCount=a.ListCount-result.ListCount;
+    temp=temp->link;
     temp->link=NULL;
+
+    //moidfying original list//
+    Node *temp2=a.head;
+    int count=1;
+    while(temp2!=NULL)
+    {
+        if(count==a.ListCount)
+        {
+            temp2->link=NULL;
+            break;
+        }
+        temp2=temp2->link;
+        count++;
+    }
+    a.ListCount=count;
     return result;
 }
 int main()

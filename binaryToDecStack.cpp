@@ -11,6 +11,7 @@ class stack1{
         void push(int a);
         bool isful();
         bool isempty();
+        int conToDecimal(int number);
         stack1()
         {
             top=-1;
