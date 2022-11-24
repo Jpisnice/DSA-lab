@@ -84,10 +84,13 @@ Node* BST::search(int value)
 // Function to display elements of Binary Search Tree
 void BST::display()
 {
+    cout << "Inorder Traversal: ";
     inorder(root);
     cout << endl;
+    cout << "Preorder Traversal: ";
     preorder(root);
     cout << endl;
+    cout << "Postorder Traversal: ";
     postorder(root);
     cout << endl;
 }
@@ -155,6 +158,7 @@ int main()
         cout << "4. Exit" << endl;
         cout << "Enter your choice : ";
         cin >> choice;
+        system("cls");
         switch(choice)
         {
         case 1:
