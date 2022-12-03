@@ -154,9 +154,10 @@ void textEditor::display()
 }
 
 /*Menu driven driver code*/
+
 int main()
 {
-    textEditor te;
+    textEditor t;
     int choice;
     char ch;
     string str;
@@ -165,8 +166,8 @@ int main()
         cout << "1. Insert" << endl;
         cout << "2. Insert String" << endl;
         cout << "3. Delete" << endl;
-        cout << "4. Move Left" << endl;
-        cout << "5. Move Right" << endl;
+        cout << "4. Left" << endl;
+        cout << "5. Right" << endl;
         cout << "6. Display" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
@@ -175,31 +176,30 @@ int main()
             case 1:
                 cout << "Enter character: ";
                 cin >> ch;
-                te.insert(ch);
+                t.insert(ch);
                 break;
             case 2:
                 cout << "Enter string: ";
                 cin >> str;
-                te.insertString(str);
+                t.insertString(str);
                 break;
             case 3:
-                te.del();
+                t.del();
                 break;
             case 4:
-                te.left();
+                t.left();
                 break;
             case 5:
-                te.right();
+                t.right();
                 break;
             case 6:
-                te.display();
+                t.display();
                 break;
-            case 7:
-                exit(0);
             default:
                 cout << "Invalid choice" << endl;
         }
-        cin >> choice;
-    } while (ch == 7);
+        cout << "Do you want to continue? (y/n): ";
+        cin >> ch;
+    } while (ch == 'y' || ch == 'Y');
     return 0;
 }
