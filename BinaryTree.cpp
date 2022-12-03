@@ -25,5 +25,31 @@ class BinaryTree
     Node* getRoot() { return root; }
 };
 
-// recurcive insert in Binary tree
+void BinaryTree::insert(int value)
+{
+    Node *temp = new Node;
+    temp->data = value;
+    temp->left = NULL;
+    temp->right = NULL;
+    if(root == NULL)
+    {
+        root = temp;
+        return;
+    }
+    Node *current = root;
+    Node *parent = NULL;
+    while(current != NULL)
+    {
+        parent = current;
+        if(value < current->data)
+            current = current->left;
+        else
+            current = current->right;
+    }
+    if(value < parent->data)
+        parent->left = temp;
+    else
+        parent->right = temp;
+}
+
 
